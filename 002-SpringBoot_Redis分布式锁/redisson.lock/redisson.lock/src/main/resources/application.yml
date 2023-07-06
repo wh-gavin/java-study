@@ -6,12 +6,8 @@ logging:
     org.springframework.web: debug
 
 
-
+#Redisson 基于Springboot
 spring:
-  task:
-      scheduling:
-          pool:
-             size: 10
   redis:
       # Redis 数据库索引（默认为 0）
       database: 0
