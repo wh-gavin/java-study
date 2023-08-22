@@ -1,5 +1,11 @@
 package com.efuture.omd.storage.parser;
 
+import java.util.List;
+
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.SerializationUtils;
+
+import com.alibaba.druid.sql.ast.SQLLimit;
 import com.alibaba.druid.sql.ast.SQLOrderBy;
 import com.alibaba.druid.sql.ast.SQLOrderingSpecification;
 import com.alibaba.druid.sql.ast.expr.SQLAllColumnExpr;
@@ -12,7 +18,7 @@ import com.alibaba.druid.sql.ast.statement.SQLSelectQueryBlock;
 import com.alibaba.druid.sql.ast.statement.SQLSelectStatement;
 import com.alibaba.druid.sql.dialect.db2.ast.stmt.DB2SelectQueryBlock;
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock;
-import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock.Limit;
+//import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock.Limit;
 import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleSelect;
 import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleSelectQueryBlock;
 import com.alibaba.druid.sql.dialect.postgresql.ast.stmt.PGSelectQueryBlock;
@@ -20,9 +26,6 @@ import com.alibaba.druid.sql.dialect.postgresql.ast.stmt.PGSelectStatement;
 import com.alibaba.druid.sql.dialect.sqlserver.ast.SQLServerSelect;
 import com.alibaba.druid.sql.dialect.sqlserver.ast.SQLServerSelectQueryBlock;
 import com.mongodb.DBObject;
-import java.util.List;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.SerializationUtils;
 
 public class QuerySelectExtractor extends QueryExtractor {
 	private Query query;
@@ -119,7 +122,7 @@ public class QuerySelectExtractor extends QueryExtractor {
 				queryBlock = new SQLSelectQueryBlock();
 		}
 		if ((query != null) && (query.getLimit() > 0) && ((queryBlock instanceof MySqlSelectQueryBlock))) {
-			MySqlSelectQueryBlock.Limit limit = new MySqlSelectQueryBlock.Limit();
+			SQLLimit limit = new SQLLimit();
 			limit.setRowCount(new SQLNumberExpr(Integer.valueOf(query.getLimit())));
 			limit.setOffset(new SQLNumberExpr(Integer.valueOf(query.getSkip())));
 			((MySqlSelectQueryBlock) queryBlock).setLimit(limit);

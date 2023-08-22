@@ -7,12 +7,12 @@ import org.springframework.data.mongodb.core.query.SerializationUtils;
 import org.springframework.data.mongodb.core.query.Update;
 
 import com.alibaba.druid.sql.ast.SQLExpr;
+import com.alibaba.druid.sql.ast.SQLLimit;
 import com.alibaba.druid.sql.ast.expr.SQLBinaryOpExpr;
 import com.alibaba.druid.sql.ast.expr.SQLBinaryOperator;
 import com.alibaba.druid.sql.ast.expr.SQLNumberExpr;
 import com.alibaba.druid.sql.ast.statement.SQLUpdateSetItem;
 import com.alibaba.druid.sql.ast.statement.SQLUpdateStatement;
-import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock;
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlUpdateStatement;
 import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleUpdateStatement;
 import com.alibaba.druid.sql.dialect.postgresql.ast.stmt.PGUpdateStatement;
@@ -86,7 +86,7 @@ public class QueryUpdateExtractor extends QueryExtractor {
 		parseSetItems(update, stmt);
 		if (!multi) {
 			if ((stmt instanceof MySqlUpdateStatement)) {
-				MySqlSelectQueryBlock.Limit limit = new MySqlSelectQueryBlock.Limit();
+				SQLLimit limit = new SQLLimit();
 				limit.setRowCount(new SQLNumberExpr(Integer.valueOf(1)));
 				((MySqlUpdateStatement) stmt).setLimit(limit);
 			}

@@ -35,6 +35,7 @@ public interface OracleASTVisitor extends SQLASTVisitor {
     default void endVisit(OracleAnalyticWindowing x) {
     }
 
+    default void endVisit(OracleDateExpr x) {}
     default void endVisit(OracleDeleteStatement x) {
         endVisit((SQLDeleteStatement) x);
     }
@@ -43,6 +44,8 @@ public interface OracleASTVisitor extends SQLASTVisitor {
     }
 
     default void endVisit(OracleOuterExpr x) {
+    }
+    default void endVisit(OracleSelectForUpdate x) {
     }
 
     default void endVisit(OracleSelectJoin x) {
@@ -68,6 +71,10 @@ public interface OracleASTVisitor extends SQLASTVisitor {
         return true;
     }
 
+    default boolean visit(OracleDateExpr x) { 
+        return true;
+    }
+
     default boolean visit(OracleDeleteStatement x) {
         return visit((SQLDeleteStatement) x);
     }
@@ -79,6 +86,10 @@ public interface OracleASTVisitor extends SQLASTVisitor {
     default boolean visit(OracleOuterExpr x) {
         return true;
     }
+    default boolean visit(OracleSelectForUpdate x) {
+        return true;
+    }
+
 
     default boolean visit(OracleSelectJoin x) {
         return true;

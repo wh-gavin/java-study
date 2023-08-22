@@ -1,5 +1,6 @@
 package com.efuture.omd.storage.parser;
 
+import com.alibaba.druid.DbType;
 import com.alibaba.druid.sql.ast.statement.SQLSelect;
 import com.alibaba.druid.sql.ast.statement.SQLSelectStatement;
 import com.alibaba.druid.sql.visitor.SQLASTOutputVisitor;
@@ -12,7 +13,7 @@ public class OracleSelectStatementWithLimit extends SQLSelectStatement {
 	}
 
 	public OracleSelectStatementWithLimit(String dbType) {
-		super(dbType);
+		super(DbType.of(dbType));
 	}
 
 	public OracleSelectStatementWithLimit(SQLSelect select, int limit) {
@@ -21,7 +22,7 @@ public class OracleSelectStatementWithLimit extends SQLSelectStatement {
 	}
 
 	public OracleSelectStatementWithLimit(SQLSelect select, String dbType) {
-		super(select, dbType);
+		super(select, DbType.of(dbType));
 	}
 
 	protected void accept0(SQLASTVisitor visitor) {
