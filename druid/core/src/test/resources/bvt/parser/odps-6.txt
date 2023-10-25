@@ -1,1 +1,0 @@
-update t set (a, b, c) = (select x, y, z from e where t.d = e.d) where t.d = e.d;
