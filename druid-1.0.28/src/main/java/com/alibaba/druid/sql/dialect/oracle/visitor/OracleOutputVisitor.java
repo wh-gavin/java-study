@@ -57,6 +57,7 @@ import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleArgumentExpr;
 import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleBinaryDoubleExpr;
 import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleBinaryFloatExpr;
 import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleCursorExpr;
+import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleDateExpr;
 import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleDatetimeExpr;
 import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleDbLinkExpr;
 import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleIntervalExpr;
@@ -1540,6 +1541,19 @@ public class OracleOutputVisitor extends SQLASTOutputVisitor implements OracleAS
     public void endVisit(OracleDatetimeExpr x) {
 
     }
+    
+    @Override
+	public boolean visit(OracleDateExpr x) {
+		print0(this.ucase ? "DATE '" : "date '");
+		print0(x.getLiteral());
+		print('\'');
+		return false;
+	}
+
+	@Override
+	public void endVisit(OracleDateExpr x) {
+
+	}
 
     @Override
     public boolean visit(OracleSysdateExpr x) {

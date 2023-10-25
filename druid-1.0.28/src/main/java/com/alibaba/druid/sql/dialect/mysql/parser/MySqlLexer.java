@@ -435,6 +435,7 @@ public class MySqlLexer extends Lexer {
         // identifierFlags['`'] = true;
         identifierFlags['_'] = true;
         //identifierFlags['-'] = true; // mysql
+        identifierFlags['$'] = true;
     }
 
     public static boolean isIdentifierChar(char c) {

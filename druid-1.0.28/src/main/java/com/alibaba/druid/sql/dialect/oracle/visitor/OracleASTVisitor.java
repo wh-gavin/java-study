@@ -15,6 +15,7 @@
  */
 package com.alibaba.druid.sql.dialect.oracle.visitor;
 
+import com.alibaba.druid.sql.ast.expr.SQLDateExpr;
 import com.alibaba.druid.sql.dialect.oracle.ast.OracleDataTypeIntervalDay;
 import com.alibaba.druid.sql.dialect.oracle.ast.OracleDataTypeIntervalYear;
 import com.alibaba.druid.sql.dialect.oracle.ast.OracleDataTypeTimestamp;
@@ -36,7 +37,7 @@ import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleArgumentExpr;
 import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleBinaryDoubleExpr;
 import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleBinaryFloatExpr;
 import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleCursorExpr;
-import com.alibaba.druid.sql.ast.expr.SQLDateExpr;
+import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleDateExpr;
 import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleDatetimeExpr;
 import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleDbLinkExpr;
 import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleIntervalExpr;
@@ -305,6 +306,10 @@ public interface OracleASTVisitor extends SQLASTVisitor {
 
     void endVisit(OracleDatetimeExpr x);
 
+    boolean visit(OracleDateExpr x);
+
+    void endVisit(OracleDateExpr x);
+    
     boolean visit(OracleSysdateExpr x);
 
     void endVisit(OracleSysdateExpr x);

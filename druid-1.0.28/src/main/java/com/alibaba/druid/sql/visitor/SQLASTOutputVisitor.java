@@ -397,7 +397,12 @@ public class SQLASTOutputVisitor extends SQLASTVisitorAdapter implements Paramet
             boolean rightRational = right.getOperator() == SQLBinaryOperator.BooleanAnd
                                     || right.getOperator() == SQLBinaryOperator.BooleanOr;
 
-            if (right.getOperator().priority >= x.getOperator().priority) {
+            if (
+                    (right.getOperator().priority >= x.getOperator().priority) ||
+                    (right.getOperator() != x.getOperator() && right.getOperator().isLogical() && x.getOperator().isLogical())
+                ) 
+                {
+
                 if (rightRational) {
                     incrementIndent();
                 }
@@ -428,7 +433,11 @@ public class SQLASTOutputVisitor extends SQLASTVisitorAdapter implements Paramet
             boolean leftRational = binaryLeft.getOperator() == SQLBinaryOperator.BooleanAnd
                                    || binaryLeft.getOperator() == SQLBinaryOperator.BooleanOr;
 
-            if (binaryLeft.getOperator().priority > op.priority) {
+            if (
+                    (binaryLeft.getOperator().priority > op.priority) ||
+                    (binaryLeft.getOperator() != op && binaryLeft.getOperator().isLogical() && op.isLogical())
+                ) {
+
                 if (leftRational) {
                     incrementIndent();
                 }

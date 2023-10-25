@@ -15,6 +15,7 @@
  */
 package com.alibaba.druid.sql.dialect.mysql.visitor;
 
+import com.alibaba.druid.sql.ast.SQLLimit;
 import com.alibaba.druid.sql.dialect.mysql.ast.MySqlForceIndexHint;
 import com.alibaba.druid.sql.dialect.mysql.ast.MySqlIgnoreIndexHint;
 import com.alibaba.druid.sql.dialect.mysql.ast.MySqlKey;
@@ -118,7 +119,6 @@ import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlShowTableStatusSta
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlShowTriggersStatement;
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlShowVariantsStatement;
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlShowWarningsStatement;
-import com.alibaba.druid.sql.ast.statement.SQLStartTransactionStatement;
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSubPartitionByKey;
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSubPartitionByList;
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlTableIndex;
@@ -130,6 +130,10 @@ import com.alibaba.druid.sql.dialect.mysql.ast.statement.MysqlDeallocatePrepareS
 import com.alibaba.druid.sql.visitor.SQLASTVisitor;
 
 public interface MySqlASTVisitor extends SQLASTVisitor {
+    boolean visit(SQLLimit x);
+
+    void endVisit(SQLLimit x);
+    
     boolean visit(MySqlTableIndex x);
 
     void endVisit(MySqlTableIndex x);
