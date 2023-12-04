@@ -1,0 +1,6 @@
+com\plugin\impl\ITestDataBeanService.class
+com\plugin\impl\TestResult.class
+com\plugin\impl\PluginServiceImpl.class
+com\plugin\impl\IPluginService.class
+com\plugin\impl\TestDataBeanServiceImpl.class
+com\plugin\impl\TestDataBean.class
