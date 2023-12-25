@@ -1,0 +1,12 @@
+spring:
+  #main:
+    #allow-bean-definition-overriding: true
+  datasource:
+    # driver-class-name: 
+    schema: classpath:db/schema.sql # schema.sql中一般存放的是DDL脚本，即通常为创建或更新库表的脚本
+    data: classpath:db/data.sql     # data.sql中一般是DML脚本，即通常为数据插入脚本      
+    username: sa
+    password: 
+    url: jdbc:h2:mem:testdb # 缺省
+    initialization-mode: ALWAYS
+    driverClassName: org.h2.Driver

@@ -1,0 +1,26 @@
+package org.tacos.jdbc;
+
+import java.util.List;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.tacos.domain.Ingredient;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class IngredientRepositoryTest {
+
+	@Autowired
+	private IngredientRepository ingredientRepository;
+	
+	@Test
+	public void findAll() {
+		Iterable<Ingredient> iterables = ingredientRepository.findAll();
+		for(Ingredient it : iterables) {
+			System.out.println(it.toString());
+		}
+	}
+}
