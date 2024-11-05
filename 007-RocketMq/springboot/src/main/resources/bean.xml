@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+
+	<beans>
+	<!-- 
+	    <bean id="mongoClient" class="com.mongodb.client.MongoClients"
+	          factory-method="create">
+	        <constructor-arg name="connectionString" value="mongodb://root:root@172.17.11.35:27017/?authSource=admin"/>
+	    </bean>
+    
+
+<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+    <constructor-arg name="mongoClient" ref="mongoClient" />
+    <constructor-arg name="databaseName" value="test1" />
+</bean> -->
+
+    <!-- 定义Mongo客户端 
+    <bean id="mongoClient" class="com.mongodb.client.MongoClients" factory-method="create">
+        <constructor-arg value="mongodb://root:root@172.17.11.35:27017/?authSource=admin" />
+    </bean>-->
+ 
+    <!-- 定义数据库工厂 
+    <bean id="mongoDatabaseFactory" class="org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory">
+        <constructor-arg ref="mongoClient" />
+        <constructor-arg value="test1" />
+    </bean>-->
+     <bean id="mongoDatabaseFactory" class="org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory">
+        <constructor-arg name="connectionString" value="mongodb://root:root@172.17.11.35:27017/test1?authSource=admin" />
+    </bean>
+    
+    <!-- 定义MongoTemplate -->
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg ref="mongoDatabaseFactory" />
+    </bean>
+
+
+	</beans>
+
+
+</beans>

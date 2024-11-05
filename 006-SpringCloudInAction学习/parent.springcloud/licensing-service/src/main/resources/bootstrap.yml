@@ -5,4 +5,4 @@ spring:
     active: dev
   cloud:
     config: 
-      uri: http://localhost:8071
+      uri: ${IHUB_CONFIG_SERVER_URI:http://localhost:8071}

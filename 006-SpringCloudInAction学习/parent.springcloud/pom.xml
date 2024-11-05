@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>springcloud</groupId>
 	<artifactId>parent.springcloud</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -15,16 +15,14 @@
 	-->
 	<name>parent.springcloud</name>
 	<url>http://maven.apache.org</url>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>
 		<spring-boot.version>2.2.4.RELEASE</spring-boot.version>
 		<java.version>11</java.version>
-	    <maven.compiler.source>11</maven.compiler.source>
-	    <maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
-	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -43,10 +41,15 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
 	<modules>
 		<module>configserver</module>
 		<module>licensing-service</module>
 		<module>configclient</module>
+		<module>organization-service</module>
+		<module>eurekaserver</module>
+		<module>springboot-dbtemplate</module>
+		<module>springboot-dbtemplate-autoconfigure</module>
+		<module>springboot-dbtemplate-starter</module>
+		<module>springboot-dbtemplate-test</module>
 	</modules>
 </project>
