@@ -1,0 +1,169 @@
+# Valve Pipeline 应用配置
+
+# 应用基本信息
+app:
+  name: "valve-pipeline-demo"
+  version: "1.0.0"
+  description: "A custom valve pipeline implementation example"
+
+# 服务器配置
+server:
+  port: 8080
+  context-path: "/"
+  
+  # Jetty配置
+  jetty:
+    max-threads: 200
+    min-threads: 10
+    idle-timeout: 30000
+
+# 日志配置
+logging:
+  level:
+    com.custom.valve: DEBUG
+    root: INFO
+  
+  # 控制台输出
+  console:
+    enabled: true
+    pattern: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  
+  # 文件输出
+  file:
+    enabled: false
+    path: "./logs/valve-pipeline.log"
+    max-size: 10MB
+    max-history: 30
+
+# Valve Pipeline 配置
+valve:
+  
+  # 全局配置
+  enabled: true
+  async-supported: true
+  
+  # 日志阀门配置
+  logging-valve:
+    enabled: true
+    log-request: true
+    log-response: true
+    log-headers: false
+    log-parameters: false
+    slow-threshold: 1000  # 1秒
+    time-format: "yyyy-MM-dd HH:mm:ss.SSS"
+  
+  # 缓存阀门配置
+  cache-valve:
+    enabled: true
+    max-size: 1000
+    expire-after-write: 300     # 5分钟
+    expire-after-access: 60     # 1分钟
+    record-stats: true
+    
+    # 包含路径
+    include-paths:
+      - "/api/hello"
+      - "/api/status"
+      - "/static/"
+      - "/public/"
+    
+    # 排除路径
+    exclude-paths:
+      - "/api/admin/"
+      - "/api/private/"
+  
+  # 限流阀门配置
+  rate-limiting-valve:
+    enabled: true
+    global-rate: 1000     # 全局1000请求/秒
+    client-rate: 100      # 每个客户端100请求/秒
+    burst-size: 20        # 突发请求数
+    block-duration: 60    # 被阻止后60秒重试
+    
+    # 排除路径（不限流）
+    exclude-paths:
+      - "/health"
+      - "/favicon.ico"
+    
+    # 白名单（不限流）
+    whitelist:
+      - "127.0.0.1"
+      - "192.168.1.0/24"
+  
+  # 认证阀门配置
+  authentication-valve:
+    enabled: true
+    token-header: "Authorization"
+    token-prefix: "Bearer "
+    session-cookie: "SESSIONID"
+    require-https: false
+    
+    # 排除路径（不需要认证）
+    exclude-paths:
+      - "/health"
+      - "/public/"
+      - "/static/"
+      - "/login"
+      - "/favicon.ico"
+    
+    # 角色权限配置
+    role-permissions:
+      USER:
+        - "GET:/api/hello"
+        - "GET:/api/user"
+        - "GET:/api/status"
+      ADMIN:
+        - "*"
+  
+  # 管道配置
+  pipelines:
+    # API管道配置
+    api:
+      valves:
+        - "logging-valve"
+        - "cache-valve"
+        - "rate-limiting-valve"
+        - "authentication-valve"
+      basic-valve: "basic-valve"
+    
+    # 公共管道配置
+    public:
+      valves:
+        - "logging-valve"
+        - "rate-limiting-valve"
+        - "cache-valve"
+      basic-valve: "basic-valve"
+    
+    # 静态资源管道配置
+    static:
+      valves:
+        - "logging-valve"
+        - "cache-valve"
+      basic-valve: "basic-valve"
+    
+    # 管理管道配置
+    admin:
+      valves:
+        - "logging-valve"
+        - "authentication-valve"
+      basic-valve: "basic-valve"
+
+# 开发环境特殊配置
+development: &development
+  logging.level.com.custom.valve: TRACE
+  valve.logging-valve.log-headers: true
+  valve.logging-valve.log-parameters: true
+  valve.authentication-valve.require-https: false
+
+# 生产环境特殊配置
+production: &production
+  logging.level.com.custom.valve: INFO
+  valve.logging-valve.log-request: true
+  valve.logging-valve.log-response: true
+  valve.authentication-valve.require-https: true
+
+# 当前环境
+environment: "development"
+
+# 条件配置
+<<: *development
