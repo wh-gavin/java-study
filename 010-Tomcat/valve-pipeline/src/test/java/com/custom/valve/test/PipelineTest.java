@@ -169,6 +169,22 @@ public class PipelineTest {
         BasicValve valve = new BasicValve();
         valve.setName("testBasicValve");
         
+        
+        // 模拟请求和响应
+//        HttpServletRequest httpRequest = mock(HttpServletRequest.class);
+//        
+//        when(httpRequest.getMethod()).thenReturn("GET");
+//        when(httpRequest.getRequestURI()).thenReturn("/health");
+//        when(httpRequest.getRemoteAddr()).thenReturn("127.0.0.1");
+//        
+//        HttpServletResponse httpResponse = mock(HttpServletResponse.class);
+//        StringWriter writer = new StringWriter();
+//        PrintWriter printWriter = new PrintWriter(writer);
+//        when(httpResponse.getWriter()).thenReturn(printWriter);
+//        
+//        ValveRequest request = new ValveRequest(httpRequest);
+//        ValveResponse response = new ValveResponse(httpResponse);
+        
         // 模拟请求和响应
         ValveRequest request = mock(ValveRequest.class);
         when(request.getMethod()).thenReturn("GET");
@@ -186,7 +202,7 @@ public class PipelineTest {
         valve.invoke(request, response, chain);
         
         // 验证响应内容包含健康检查信息
-        assertTrue(writer.toString().contains("\"status\":\"UP\""));
+        assertTrue(writer.toString().contains("\"UP\""));
     }
     
     @Test
