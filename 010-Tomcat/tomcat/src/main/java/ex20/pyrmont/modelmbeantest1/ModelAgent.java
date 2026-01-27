@@ -57,8 +57,14 @@ public class ModelAgent {
     ModelMBeanAttributeInfo[] attributes = new ModelMBeanAttributeInfo[1];
     ModelMBeanOperationInfo[] operations = new ModelMBeanOperationInfo[3];
     try {
+    	  DescriptorSupport colorDesc = new DescriptorSupport();
+    	    colorDesc.setField("name", "Color");
+    	    colorDesc.setField("descriptorType", "attribute");
+    	    colorDesc.setField("getMethod", "getColor");
+    	    colorDesc.setField("setMethod", "setColor");
+    	
       attributes[0] = new ModelMBeanAttributeInfo("Color", "java.lang.String",
-        "the color.", true, true, false, null);
+        "the color.", true, true, false, colorDesc);
       operations[0] = new ModelMBeanOperationInfo("drive", "the drive method",
         null, "void", MBeanOperationInfo.ACTION, null);
       operations[1] = new ModelMBeanOperationInfo("getColor", "get color attribute",
@@ -67,6 +73,7 @@ public class ModelAgent {
       Descriptor setColorDesc = new DescriptorSupport(new String[] {
         "name=setColor", "descriptorType=operation", 
         "class=" + MANAGED_CLASS_NAME, "role=operation"});
+      
       MBeanParameterInfo[] setColorParams = new MBeanParameterInfo[] { 
         (new MBeanParameterInfo("new color", "java.lang.String",
         "new Color value") )} ;
@@ -103,8 +110,20 @@ public class ModelAgent {
       Attribute attribute = new Attribute("Color", "green");
       mBeanServer.setAttribute(objectName, attribute);
       
+      
       String color = (String) mBeanServer.getAttribute(objectName, "Color");
       System.out.println("Color:" + color);
+      
+      color= (String)mBeanServer.invoke(objectName, "getColor", null, null);
+      
+      System.out.println(car.getColor() + "==" + color);
+      
+      mBeanServer.invoke(objectName, "setColor", new Object[]{"yellow"}, new String[]{"java.lang.String"});
+      
+      
+      color= (String)mBeanServer.invoke(objectName, "getColor", null, null);
+      
+      System.out.println(car.getColor() + "==" + color);
       
       attribute = new Attribute("Color", "blue");
       mBeanServer.setAttribute(objectName, attribute);

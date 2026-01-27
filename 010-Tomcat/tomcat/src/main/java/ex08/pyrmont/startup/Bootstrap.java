@@ -19,7 +19,8 @@ public final class Bootstrap {
 
     //invoke: http://localhost:8080/Modern or  http://localhost:8080/Primitive
 
-    System.setProperty("catalina.base", System.getProperty("user.dir"));
+    //System.setProperty("catalina.base", System.getProperty("user.dir"));
+    System.setProperty("catalina.base", "D:\\DEV\\codeinsight\\HowTomcatWorks");
     Connector connector = new HttpConnector();
     Wrapper wrapper1 = new SimpleWrapper();
     wrapper1.setName("Primitive");

@@ -6,11 +6,11 @@ import org.apache.commons.digester.Digester;
 public class Test01 {
 
   public static void main(String[] args) {
-    String path = System.getProperty("user.dir") + File.separator  + "etc";
+    String path = "D:\\DEV\\codeinsight\\HowTomcatWorks\\etc";
     File file = new File(path, "employee1.xml");
     Digester digester = new Digester();
     // add rules
-    digester.addObjectCreate("employee", "Employee");
+    digester.addObjectCreate("employee", "cxs15.pyrmont.digestertest.Employee");
     digester.addSetProperties("employee");    
     digester.addCallMethod("employee", "printName");
 

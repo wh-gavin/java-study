@@ -44,14 +44,14 @@ public class StandardAgent {
     ObjectName objectName = agent.createObjectName(domain + ":type=" + 
       managedResourceClassName);
     agent.createStandardBean(objectName, managedResourceClassName);
-
+    
 
     // manage MBean
     try {
       Attribute colorAttribute = new Attribute("Color","blue");
       mBeanServer.setAttribute(objectName, colorAttribute);
       System.out.println(mBeanServer.getAttribute(objectName, "Color"));
-      mBeanServer.invoke(objectName,"drive",null,null);
+      mBeanServer.invoke(objectName,"drive",new Object[]{"yellow"}, new String[]{"java.lang.String"});
     } 
     catch (Exception e) {
       e.printStackTrace();

@@ -1,9 +1,12 @@
 package cxs16.pyrmont.shutdownhook;
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
 
 public class MySwingApp extends JFrame {
   JButton exitButton = new JButton();
@@ -29,8 +32,13 @@ public class MySwingApp extends JFrame {
     this.setVisible(true);
     initialize();
   }
-
+  class MyShutdownHook extends Thread {
+	  
+  }
   private void initialize() {
+	  MyShutdownHook shut = new MyShutdownHook();
+	  Runtime.getRuntime().addShutdownHook(shut);
+	  
     // create a temp file
     File file = new File(dir, filename);
     try {

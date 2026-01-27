@@ -95,7 +95,10 @@ public class ModelAgent {
       mBeanServer.setAttribute(objectName, attribute);
       color = (String) mBeanServer.getAttribute(objectName, "Color");
       System.out.println("Color:" + color);
-      mBeanServer.invoke(objectName, "drive", null, null);
+      
+      
+      
+      mBeanServer.invoke(objectName, "drive", new Object[]{"yellow"}, new String[]{"java.lang.String"});
 
     } 
     catch (Exception e) {
