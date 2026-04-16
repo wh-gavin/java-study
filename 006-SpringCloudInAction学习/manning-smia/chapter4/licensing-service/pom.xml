@@ -15,7 +15,7 @@
 	<description>Ostock Licensing Service</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<docker.image.prefix>172.17.11.204:7077/ostock</docker.image.prefix>
 	</properties>
 
